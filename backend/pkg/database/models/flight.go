@@ -9,8 +9,8 @@ type Flight struct {
 	AircraftType string `json:"aircraft_type"`
 }
 
-func (f *Flight) Create(db *gorm.DB, flight *Flight) error {
-	err := db.Create(flight).Error
+func (f *Flight) Create(db *gorm.DB) error {
+	err := db.Create(f).Error
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func (f *Flight) Get(db *gorm.DB, id uint) (*Flight, error) {
 	return flight, nil
 }
 
-func (f *Flight) GetAll(db *gorm.DB) ([]*Flight, error) {
+func GetAllFlights(db *gorm.DB) ([]*Flight, error) {
 	var flights []*Flight
 	err := db.Find(&flights).Error
 	if err != nil {
@@ -38,8 +38,9 @@ func (f *Flight) GetAll(db *gorm.DB) ([]*Flight, error) {
 	return flights, nil
 }
 
-func (f *Flight) Update(db *gorm.DB, flight *Flight) error {
-	err := db.Save(flight).Error
+func (f *Flight) UpdateFlight(db *gorm.DB) error {
+	err := db.Save(f).Error
+
 	if err != nil {
 		return err
 	}
@@ -47,7 +48,7 @@ func (f *Flight) Update(db *gorm.DB, flight *Flight) error {
 	return nil
 }
 
-func (f *Flight) Delete(db *gorm.DB, id uint) error {
+func DeleteFlight(db *gorm.DB, id uint) error {
 	err := db.Delete(&Flight{}, id).Error
 	if err != nil {
 		return err

@@ -24,7 +24,7 @@ func (s *Seat) Create(db *gorm.DB, seat *Seat) error {
 	return nil
 }
 
-func (s *Seat) Get(db *gorm.DB, id uint) (*Seat, error) {
+func GetSeat(db *gorm.DB, id uint) (*Seat, error) {
 	seat := &Seat{}
 	err := db.First(seat, id).Error
 	if err != nil {
@@ -34,17 +34,17 @@ func (s *Seat) Get(db *gorm.DB, id uint) (*Seat, error) {
 	return seat, nil
 }
 
-func (s *Seat) GetAll(db *gorm.DB) ([]*Seat, error) {
+func GetAllSeats(db *gorm.DB) ([]*Seat, error) {
 	var seats []*Seat
 	err := db.Find(&seats).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return seats, nil
+	return seats, err
 }
 
-func (s *Seat) Update(db *gorm.DB, seat *Seat) error {
+func UpdateSeat(db *gorm.DB, seat *Seat) error {
 	err := db.Save(seat).Error
 	if err != nil {
 		return err
@@ -53,8 +53,8 @@ func (s *Seat) Update(db *gorm.DB, seat *Seat) error {
 	return nil
 }
 
-func (s *Seat) Delete(db *gorm.DB, id uint) error {
-	err := db.Delete(&Seat{}, id).Error
+func (s *Seat) DeleteSeat(db *gorm.DB, id uint) error {
+	err := db.Delete(s, id).Error
 	if err != nil {
 		return err
 	}
