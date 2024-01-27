@@ -1,19 +1,22 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Seat struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
-	FlightID    uint   `json:"flight_id"`
-	Flight      Flight `json:"flight" gorm:"foreignKey:FlightID"`
-	SeatNo      string `json:"seat_no"`
-	AssignedPNR string `json:"assigned_pnr"`
-	ForSale     bool   `json:"for_sale"`
-	MinPrice    uint   `json:"min_price"` // All prices in Dollars
-	BuyNowPrice uint   `json:"buy_now_price"`
-	CurrentBid  uint   `json:"current_bid"`
+	ID          uint      `json:"id" gorm:"primaryKey"`
+	FlightID    uint      `json:"flight_id"`
+	Flight      Flight    `json:"flight" gorm:"foreignKey:FlightID"`
+	SeatNo      string    `json:"seat_no"`
+	AssignedPNR string    `json:"assigned_pnr"`
+	ForSale     bool      `json:"for_sale"`
+	MinPrice    uint      `json:"min_price"` // All prices in Dollars
+	BuyNowPrice uint      `json:"buy_now_price"`
+	CurrentBid  uint      `json:"current_bid"`
+	BidTimeEnd  time.Time `json:"bid_time_end"`
 }
-
 
 func (s *Seat) Create(db *gorm.DB, seat *Seat) error {
 	err := db.Create(seat).Error

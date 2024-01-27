@@ -1,12 +1,16 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Flight struct {
-	ID           uint   `json:"id" gorm:"primaryKey"`
-	Origin       string `json:"origin"`
-	Dest         string `json:"dest"`
-	AircraftType string `json:"aircraft_type"`
+	ID                  uint      `json:"id" gorm:"primaryKey"`
+	Origin              string    `json:"origin"`
+	Dest                string    `json:"dest"`
+	AircraftType        string    `json:"aircraft_type"`
+	ScheduledFlightTime time.Time `json:"scheduled_flight_time"`
 }
 
 func (f *Flight) Create(db *gorm.DB) error {
@@ -18,14 +22,14 @@ func (f *Flight) Create(db *gorm.DB) error {
 	return nil
 }
 
-func (f *Flight) Get(db *gorm.DB, id uint) (*Flight, error) {
+func (f *Flight) Get(db *gorm.DB) error {
 	flight := &Flight{}
-	err := db.First(flight, id).Error
+	err := db.First(flight, f.ID).Error
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return flight, nil
+	return nil
 }
 
 func GetAllFlights(db *gorm.DB) ([]*Flight, error) {

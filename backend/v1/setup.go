@@ -1,0 +1,26 @@
+package v1
+
+import (
+	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/config"
+	"github.com/Raajheer1/tamuhack-x/m/v2/v1/flight"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"net/http"
+)
+
+func NewServer(cfg *config.Config) *chi.Mux {
+	r := chi.NewRouter()
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+
+	r.Get("/", handleMain)
+
+	r.Route("/flight", flight.Router)
+
+	return r
+}
+
+func handleMain(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello World!"))
+}
