@@ -1,6 +1,5 @@
 package flight
 
-import "C"
 import (
 	"encoding/json"
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/database"

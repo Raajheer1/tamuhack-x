@@ -15,6 +15,7 @@ type Seat struct {
 	MinPrice    uint      `json:"min_price"` // All prices in Dollars
 	BuyNowPrice uint      `json:"buy_now_price"`
 	CurrentBid  uint      `json:"current_bid"`
+	LastBidder  string    `json:"last_bidder"`
 	BidTimeEnd  time.Time `json:"bid_time_end"`
 }
 
@@ -56,8 +57,8 @@ func UpdateSeat(db *gorm.DB, seat *Seat) error {
 	return nil
 }
 
-func (s *Seat) DeleteSeat(db *gorm.DB, id uint) error {
-	err := db.Delete(s, id).Error
+func DeleteSeat(db *gorm.DB, id uint) error {
+	err := db.Delete(&Seat{}, id).Error
 	if err != nil {
 		return err
 	}

@@ -18,6 +18,6 @@ func main() {
 		log.Fatalf("[Database] Migration Error: %s", err)
 	}
 
-	s := v1.NewServer(cfg)
+	s := v1.NewServer()
 	log.Fatal(http.ListenAndServe(":8080", s))
 }
