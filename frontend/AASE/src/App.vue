@@ -31,7 +31,7 @@ import Confirmation from './components/Confirmation.vue';
 import Account from './components/Account.vue';
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("login");
+const page = ref<string>("account");
 
   const toLogin = () => {
     page.value = "login";
