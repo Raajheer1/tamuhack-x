@@ -4,27 +4,31 @@
     <div class="flex mx-auto" id="login">
         
         <div class="mx-auto">
+            <div class="my-10">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
 
-            <h1 class="text-4xl font-medium">Sign In</h1>
-            <p class="text-gray-400">Start Your Journey with affordable price</p>
+            <h1 class="text-4xl font-medium my-6 ">Sign In</h1>
+            <p class="text-gray-400 my-6">Start Your Journey with affordable price</p>
             
             <form>
                 <ul>
-                    <li>
-                        <label for="">AAAdvantage #</label>
+                    <li class="my-6">
+                        <label for="">AAADVANTAGE #</label>
                         <blockquote></blockquote>
                         <input placeholder="Enter AAAdvantage #" v-model="aaAdvantageNum">
                     </li>
                     
-                    <li>
-                        <label for="">Password</label>
+                    <li class="my-6">
+                        <label for="">PASSWORD</label>
                         <blockquote></blockquote>
                         <input placeholder="Enter Your Password" v-model="password">
                     </li>
 
                     <li>
-                    <button class="w-1/2 text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
-                        Login
+                    <button class="w-full text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
+                        Sign in 
+                        <span><i class="fa-solid fa-circle-check"></i></span>
                     </button>
                     </li>
                 </ul>

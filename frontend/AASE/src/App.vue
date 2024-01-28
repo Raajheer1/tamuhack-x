@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div v-if="page === 'welcome'">
-      <Welcome @next="toLogin" @next="toLogin" />
+      <Welcome @next="toLogin"/>
     </div>
     <div v-else-if="page === 'login'">
-      Login Page
+      <Login/>
     </div>
     <div v-else-if="page === 'home'">
       Home Page
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Welcome from "./components/Welcome.vue";
+import Login from "./components/Login.vue"
 
 // welcome, login, home, account, seat, confirmation
 const page = ref<string>("welcome");
