@@ -14,12 +14,12 @@
         </div>
         <div class="flex flex-row justify-between py-2 text-white">
           <div>
-            <h3 class="text-md tracking-wider">{{ new Date(seat.flight.schedule_departure_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h3>
-            <p class="text-xs text-gray-100">{{ new Date(seat.flight.schedule_departure_time).toLocaleDateString() }}</p>
+            <h3 class="text-md tracking-wider">{{ new Date(seat.flight.scheduled_departure_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h3>
+            <p class="text-xs text-gray-100">{{ new Date(seat.flight.scheduled_departure_time).toLocaleDateString() }}</p>
           </div>
           <div class="text-right">
-            <h3 class="text-md tracking-wider">{{ new Date(seat.flight.schedule_arrival_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h3>
-            <p class="text-xs text-gray-100">{{ new Date(seat.flight.schedule_arrival_time).toLocaleDateString() }}</p>
+            <h3 class="text-md tracking-wider">{{ new Date(seat.flight.scheduled_arrival_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</h3>
+            <p class="text-xs text-gray-100">{{ new Date(seat.flight.scheduled_arrival_time).toLocaleDateString() }}</p>
           </div>
         </div>
     </div>

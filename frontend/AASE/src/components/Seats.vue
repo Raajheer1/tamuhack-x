@@ -10,17 +10,17 @@
                 <div class="flex flex-col">
                     <div class="text-sm text-black flex flex-row">
                         <!-- Departure time -->
-                        12:00 PM
+                      {{ new Date(mySeat.flight.scheduled_departure_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Departure date -->
-                        28/01/2024
+                      {{ new Date(mySeat.flight.scheduled_departure_time).toLocaleDateString() }}
                     </div>
                 </div>
                 <div class="flex flex-col mx-4"> <!-- Add margin to create a symmetrical gap between time and city details -->
                     <div class="text-sm text-black flex flex-row">
                         <!-- Departure Airport Code -->
-                        SEA
+                      {{ mySeat.flight.origin }}
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Departure city -->
@@ -33,7 +33,7 @@
             <div class="flex items-center justify-center flex flex-col">
                 <img src="../assets/aa-tail.svg" alt="American Airlines Logo" class="h-20 w-20 rounded-full">
                 <div class="text-sm text-black flex flex-row font-weight-bold">
-                    Seat: 8B
+                    Seat: {{ mySeat.seat_number }}
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
                 <div class="flex flex-col mx-4"> <!-- Add margin to create a symmetrical gap between time and city details -->
                     <div class="text-sm text-black flex flex-row">
                         <!-- Arrival Airport Code -->
-                        ORD
+                      {{ mySeat.flight.destination }}
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Arrival City with 70% opacity -->
@@ -52,11 +52,11 @@
                 <div class="flex flex-col">
                     <div class="text-sm text-black flex flex-row">
                         <!-- Arrival time -->
-                        2:00 PM
+                      {{ new Date(mySeat.flight.scheduled_arrival_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Arrival date with 70% opacity -->
-                        28/01/2024
+                      {{ new Date(mySeat.flight.scheduled_departure_time).toLocaleDateString() }}
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
 
       <!-- seatmap -->
     <div class="flex flex-col p-4 relative z-10 text-white">
-      <p> Selected Seat: {{ mySeat }} (Green)</p>
-      <p class="flex">Available Seats: <span class="ml-1 max-w-36 truncate">{{ availableSeats.toString() }}</span> (Blue)</p>
+      <p> Selected Seat: {{ mySeat.seat_number }} (Green)</p>
+      <p class="flex">Available Seats: <span class="ml-1 max-w-36 truncate">{{ AvailSeatNumbers.toString() || "None " }}</span> (Blue)</p>
     </div>
     <div class="mt-4 p-4 h-stretch bg-white overflow-y-auto w-stretch m-3 rounded-3xl shadow-md relative z-10">
   <!-- First Class Section -->
@@ -75,12 +75,12 @@
         <div v-for="row in Math.floor(firstClass/4)" :key="row" class="flex justify-between my-1">
           <div class="w-1/3 flex gap-x-2.5">
             <div class="w-12 h-12 rounded-xl flex"
-                 :class="mySeat == `${row}A` ? 'bg-green-500' : availableSeats.includes(`${row}A`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 :class="mySeat.seat_number == `${row}A` ? 'bg-green-500' : isAvailable(`${row}A`) ? 'bg-aa-blue' : 'bg-gray-500'"
             >
               <p class="my-auto mx-auto text-white font-semibold">A</p>
             </div>
             <div class="w-12 h-12 rounded-xl flex"
-                 :class="mySeat == `${row}B` ? 'bg-green-500' : availableSeats.includes(`${row}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}B` ? 'bg-green-500' : isAvailable(`${row}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">B</p>
             </div>
           </div>
@@ -89,11 +89,11 @@
           </div>
           <div class="w-1/3 flex gap-x-2.5">
             <div class="w-12 h-12  rounded-xl flex"
-                 :class="mySeat == `${row}E` ? 'bg-green-500' : availableSeats.includes(`${row}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}E` ? 'bg-green-500' : isAvailable(`${row}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">E</p>
             </div>
             <div class="w-12 h-12 rounded-xl flex"
-                 :class="mySeat == `${row}F` ? 'bg-green-500' : availableSeats.includes(`${row}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}F` ? 'bg-green-500' : isAvailable(`${row}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">F</p>
             </div>
           </div>
@@ -102,15 +102,15 @@
         <div v-for="row in Math.floor(economyClass/6)" :key="row" class="flex justify-between my-1">
           <div class="w-3/7 flex gap-x-1.5">
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}A` ? 'bg-green-500' : availableSeats.includes(`${row + offset}A`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}A` ? 'bg-green-500' : isAvailable(`${row + offset}A`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">A</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}B` ? 'bg-green-500' : availableSeats.includes(`${row + offset}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}B` ? 'bg-green-500' : isAvailable(`${row + offset}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">B</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}C` ? 'bg-green-500' : availableSeats.includes(`${row + offset}C`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}C` ? 'bg-green-500' : isAvailable(`${row + offset}C`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">C</p>
             </div>
           </div>
@@ -119,15 +119,15 @@
           </div>
           <div class="w-3/7 flex gap-x-1.5">
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}D` ? 'bg-green-500' : availableSeats.includes(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat == `${row + offset}D` ? 'bg-green-500' : isAvailable(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">D</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}E` ? 'bg-green-500' : availableSeats.includes(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat == `${row + offset}E` ? 'bg-green-500' : isAvailable(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">E</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}F` ? 'bg-green-500' : availableSeats.includes(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat == `${row + offset}F` ? 'bg-green-500' : isAvailable(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">F</p>
             </div>
           </div>
@@ -139,7 +139,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
+import {Seat} from "../types";
 
 const firstClass = ref<number>(16);
 const offset = ref<number>(Math.floor(firstClass.value / 4));
@@ -147,7 +148,21 @@ const economyClass = ref<number>(144);
 
 const props = defineProps(['selectedSeat', 'emptySeats']);
 
-const mySeat = ref<string>(props.selectedSeat);
-const availableSeats = ref<string[]>(props.selectedSeat);
+const mySeat = ref<Seat>(props.selectedSeat);
+const availableSeats = ref<Seat[]>([props.selectedSeat]);
 
+const AvailSeatNumbers = computed(() => {
+  const seatNumbers: string[] = [];
+  availableSeats.value.forEach((seat) => {
+    if (seat.seat_number != mySeat.value.seat_number) {
+      seatNumbers.push(seat.seat_number);
+    }
+  })
+
+  return seatNumbers;
+})
+
+const isAvailable = (seat: string) => {
+  return AvailSeatNumbers.value.includes(seat);
+}
 </script>

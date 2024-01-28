@@ -3,8 +3,8 @@ export type Flight = {
     origin: string;
     destination: string;
     aircraft_type: string;
-    schedule_departure_time: string;
-    schedule_arrival_time: string;
+    scheduled_departure_time: string;
+    scheduled_arrival_time: string;
 }
 
 export type Seat = {
