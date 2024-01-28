@@ -12,7 +12,7 @@ import (
 
 func DoIt(w http.ResponseWriter, r *http.Request) {
 	AAid := chi.URLParam(r, "id")
-
+	println("WILL WORKKKKKKKKKKKKKKKKKKKKK")
 	account := models.Account{
 		ID: AAid,
 	}
