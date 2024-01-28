@@ -5,7 +5,9 @@
         
         <div class="mx-auto">
             <div class="my-10">
-                <i class="fa-solid fa-arrow-left"></i>
+                <button @click="backPage">
+                    <i class="fa-solid fa-arrow-left"></i> 
+                </button>
             </div>
 
             <h1 class="text-4xl font-medium my-6 ">Sign In</h1>
@@ -44,5 +46,11 @@
     
     const aaAdvantageNum = ref<string>("")
     const password = ref<string>("")
+    
+    const emit = defineEmits(['back']);
+    
+    const backPage = () => {
+        emit("back")
+    }
 
 </script>

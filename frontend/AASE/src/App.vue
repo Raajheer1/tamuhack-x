@@ -4,7 +4,7 @@
       <Welcome @next="toLogin"/>
     </div>
     <div v-else-if="page === 'login'">
-      <Login/>
+      <Login @back="toWelcome"/>
     </div>
     <div v-else-if="page === 'home'">
       Home Page
@@ -32,5 +32,9 @@ const page = ref<string>("welcome");
 
 const toLogin = () => {
   page.value = "login";
+}
+
+const toWelcome = () => {
+  page.value = "welcome"
 }
 </script>
