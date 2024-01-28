@@ -10,10 +10,10 @@
       <Home />
     </div>
     <div v-else-if="page === 'account'">
-      Account Page
+      <Account />
     </div>
-    <div v-else-if="page === 'seat'">
-      Seat Page
+    <div v-else-if="page === 'seats'">
+      <Seats />
     </div>
     <div v-else-if="page === 'confirmation'">
       <Confirmation @home="toHome" @account="toAccount"/> <!--@account="toAccount"-->
@@ -23,11 +23,13 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import Welcome from "./components/Welcome.vue";
-import Login from "./components/Login.vue";
-import Home from "./components/Home.vue";
-import Confirmation from './components/Confirmation.vue';
+  import { ref } from 'vue';
+  import Welcome from "./components/Welcome.vue";
+  import Login from "./components/Login.vue";
+  import Home from "./components/Home.vue";
+  import Confirmation from './components/Confirmation.vue';
+  import Account from "./components/Account.vue";
+  import Seats from "./components/Seats.vue";
 
 // welcome, login, home, account, seat, confirmation
 const page = ref<string>("account");
@@ -48,5 +50,8 @@ const page = ref<string>("account");
     page.value = "account"
   }
 
+  // const toSeats = () => {
+  //   page.value = "seats"
+  // }
 
 </script>
