@@ -16,7 +16,7 @@
             <form v-on:submit.prevent="attemptLogin">
                 <ul>
                     <li class="my-6">
-                        <label>AAADVANTAGE #</label>
+                        <label>AADVANTAGE #</label>
                         <blockquote></blockquote>
                         <input name="aaAdvantageNum" placeholder="Enter AAAdvantage #" v-model="aaAdvantageNum">
                     </li>
