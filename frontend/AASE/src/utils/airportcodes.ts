@@ -15,6 +15,7 @@ interface Airport {
       { code: "LAS", city: "Las Vegas" },
       { code: "SEA", city: "Seattle" },
       { code: "CLT", city: "Charlotte" },
+      { code: "CLL", city: "College Station"},
       { code: "EWR", city: "Newark" },
       { code: "MCO", city: "Orlando" },
       { code: "PHX", city: "Phoenix" },
