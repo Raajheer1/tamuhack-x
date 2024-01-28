@@ -77,7 +77,7 @@
                 return res.json();
             }).then(data => {
                 console.log(data);
-                console.log("login sucess");
+                localStorage.setItem("identifier", aaAdvantageNum.value)
                 emit("home")
             }).catch(err => {
                 console.error("Failed to Login : ", err);
