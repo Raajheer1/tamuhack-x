@@ -5,7 +5,10 @@
       <div class="mx-10 mt-16 mb-14">
         <div class="flex justify-between">
           <p class="mt-0.5 text-xl text-white tracking-wider">Upcoming Flights</p>
-          <i class="h-5 w-5 p-2 rounded-full my-auto fa-solid fa-user text-white border border-white"></i>
+          <!-- <button @click="accountPage"> -->
+            <i class="h-5 w-5 p-2 rounded-full my-auto fa-solid fa-user text-white border border-white"></i>
+          <!-- </button> -->
+
         </div>
         <h1 class="text-4xl text-white font-semibold mt-8 tracking-wider">Your next adventure awaits</h1>
       </div>

@@ -8,7 +8,7 @@
           <Login @back="toWelcome" @home="toHome" />
         </div>
         <div v-if="page === 'home'" :key="page">
-          <Home @seat="toSeat"  />
+          <Home @seat="toSeat" @account="toAccount" />
         </div>
         <div v-if="page === 'account'" :key="page">
           <Account @home="toHome" @login="toLogin" :seats="seats"/>
@@ -37,7 +37,7 @@
   import {Seat} from "./types";
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("login");
+const page = ref<string>("welcome");
 
 const AAAdvantageID = ref<string>("");
 
