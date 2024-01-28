@@ -8,13 +8,13 @@
           <Login @back="toWelcome" @home="toHome" />
         </div>
         <div v-if="page === 'home'" :key="page">
-          <Home @seat="toSeat"  />
+          <Home @seat="toSeat" @account="toAccount" />
         </div>
         <div v-if="page === 'account'" :key="page">
-          <Account @home="toHome" @login="toLogin"/>
+          <Account @home="toHome" @login="toLogin" :seats="seats"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
-          <Seats />
+          <Seats :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
         </div>
         <div v-if="page === 'confirmation'" :key="page">
           <Confirmation @home="toHome" @account="toAccount"/>
@@ -32,13 +32,19 @@
   import Confirmation from './components/Confirmation.vue';
   import Account from "./components/Account.vue";
   import Seats from "./components/Seats.vue";
+  import {API} from "./utils/api.ts";
+
+  import {Seat} from "./types";
 
 // welcome, login, home, account, seat, confirmation
-// const page = ref<string>("seats");
-// welcome, login, home, account, seat, confirmation
-const page = ref<string>("login");
+const page = ref<string>("welcome");
 
+const AAAdvantageID = ref<string>("");
 
+const selectedSeat = ref<Seat>();
+const emptySeats = ref<Seat[]>([]);
+
+const seats = ref<Seat[]>([]);
 
 const toLogin = () => {
   page.value = "login";
@@ -48,7 +54,9 @@ const toWelcome = () => {
   page.value = "welcome";
 }
 
-const toHome = () => {
+const toHome = (AAdvantageID: string) => {
+  AAAdvantageID.value = AAdvantageID;
+  fetchSeats();
   page.value = "home";
 }
 
@@ -56,10 +64,28 @@ const toAccount = () => {
   page.value = "account"
 }
 
-const toSeat = (id: string) => {
+const toSeat = (SeatID: string) => {
+  seats.value.forEach((seat) => {
+    if (seat.id.toString() === SeatID) {
+      selectedSeat.value = seat
+    }
+  })
   page.value = "seats"
 }
 
+// Fetch the data from the backend
+const fetchSeats = async () => {
+  const response = await API.get("/account/fetchall/" + AAAdvantageID.value);
+  seats.value = response.data;
+
+  // TODO - Fetch the empty seats on this plane
+  const secondary = await API.get("/seat/flight/" + selectedSeat.value?.flight_id);
+  secondary.data.forEach((seat: Seat) => {
+    if(seat.for_sale) {
+      emptySeats.value.push(seat);
+    }
+  })
+}
 
 </script>
 
