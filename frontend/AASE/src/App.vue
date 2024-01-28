@@ -16,6 +16,9 @@
         <div v-if="page === 'seats'" :key="page">
           <Seats />
         </div>
+        <div v-if="page === 'bidding'" :key="page">
+          <Bidding />
+        </div>
         <div v-if="page === 'confirmation'" :key="page">
           <Confirmation @home="toHome" @account="toAccount"/>
         </div>
@@ -32,6 +35,7 @@
   import Confirmation from './components/Confirmation.vue';
   import Account from "./components/Account.vue";
   import Seats from "./components/Seats.vue";
+  import Bidding from "./components/Bidding.vue";
 
 // welcome, login, home, account, seat, confirmation
 // const page = ref<string>("seats");
