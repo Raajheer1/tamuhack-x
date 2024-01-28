@@ -1,4 +1,4 @@
-package flight
+package seat
 
 import (
 	"encoding/json"
