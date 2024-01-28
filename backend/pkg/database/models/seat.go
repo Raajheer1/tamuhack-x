@@ -70,13 +70,8 @@ func GetAllSeatsWithFlightID(db *gorm.DB, flightID uint) ([]*Seat, error) {
 	return seats, err
 }
 
-func UpdateSeat(db *gorm.DB, seat *Seat) error {
-	err := db.Save(seat).Error
-	if err != nil {
-		return err
-	}
-
-	return nil
+func (s *Seat) Update(db *gorm.DB) error {
+	return db.Save(s).Error
 }
 
 func DeleteSeat(db *gorm.DB, id uint) error {

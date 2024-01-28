@@ -12,7 +12,7 @@ import (
 
 func DoIt(w http.ResponseWriter, r *http.Request) {
 	AAid := chi.URLParam(r, "id")
-	println("WILL WORKKKKKKKKKKKKKKKKKKKKK")
+
 	account := models.Account{
 		ID: AAid,
 	}
@@ -54,9 +54,9 @@ func DoIt(w http.ResponseWriter, r *http.Request) {
 }
 
 type BidRequest struct {
-	SeatID   uint   `json:"seat_id"`
-	BidderID string `json:"bidder_id"`
-	Bid      uint   `json:"bid"`
+	BoughtSeatID uint `json:"bought_seat_id"`
+	TradedSeatID uint `json:"traded_seat_id"`
+	Bid          uint `json:"bid"`
 }
 
 func Bid(w http.ResponseWriter, r *http.Request) {
@@ -68,24 +68,154 @@ func Bid(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	seat, err := models.GetSeat(database.DB, request.SeatID)
+	boughtSeat, err := models.GetSeat(database.DB, request.BoughtSeatID)
 	if err != nil {
-		utils.Respond(http.StatusInternalServerError, "Error getting seat", w)
+		utils.Respond(http.StatusInternalServerError, "Error getting bought seat", w)
 		return
 	}
 
-	if seat.CurrentBid >= request.Bid {
-		utils.Respond(http.StatusBadRequest, "Bid must be higher than current bid", w)
+	tradedSeat, err := models.GetSeat(database.DB, request.TradedSeatID)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting traded seat", w)
 		return
 	}
 
-	seat.CurrentBid = request.Bid
-	seat.LastBidder = request.BidderID
-	err = models.UpdateSeat(database.DB, seat)
+	if boughtSeat.CurrentBid >= request.Bid {
+		utils.Respond(http.StatusBadRequest, "Bid must be greater than current bid", w)
+		return
+	}
+
+	buyer := models.Account{
+		ID: tradedSeat.AccountID,
+	}
+
+	err = buyer.Get(database.DB)
 	if err != nil {
-		utils.Respond(http.StatusInternalServerError, "Error updating seat", w)
+		utils.Respond(http.StatusInternalServerError, "Error getting account", w)
+		return
+	}
+
+	seller := models.Account{
+		ID: boughtSeat.AccountID,
+	}
+
+	err = seller.Get(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting account", w)
+		return
+	}
+
+	if boughtSeat.CurrentBid >= boughtSeat.BuyNowPrice {
+		buyer.Money -= boughtSeat.CurrentBid
+		seller.Money += boughtSeat.CurrentBid
+		if err := buyer.UpdateAccount(database.DB); err != nil {
+			utils.Respond(http.StatusInternalServerError, "Error updating buyer account", w)
+			return
+		}
+
+		if err := seller.UpdateAccount(database.DB); err != nil {
+			utils.Respond(http.StatusInternalServerError, "Error updating seller account", w)
+			return
+		}
+
+		boughtSeat.AccountID, tradedSeat.AccountID = tradedSeat.AccountID, boughtSeat.AccountID
+		boughtSeat.CurrentBid, tradedSeat.CurrentBid = 0, 0
+		boughtSeat.LastBidder, tradedSeat.LastBidder = "", ""
+		boughtSeat.ForSale, tradedSeat.ForSale = false, false
+	} else {
+		boughtSeat.CurrentBid = request.Bid
+		boughtSeat.LastBidder = tradedSeat.AccountID
+	}
+
+	err = boughtSeat.Update(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating bought seat", w)
+		return
+	}
+
+	err = tradedSeat.Update(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating traded seat", w)
 		return
 	}
 
 	utils.Respond(http.StatusOK, "Bid successful", w)
+}
+
+type BuyRequest struct {
+	BoughtSeatID uint `json:"bought_seat_id"`
+	TradedSeatID uint `json:"traded_seat_id"`
+}
+
+func Buy(w http.ResponseWriter, r *http.Request) {
+	var request BuyRequest
+	req := json.NewDecoder(r.Body)
+	err := req.Decode(&request)
+	if err != nil {
+		utils.Respond(http.StatusBadRequest, "Invalid request body", w)
+		return
+	}
+
+	boughtSeat, err := models.GetSeat(database.DB, request.BoughtSeatID)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting bought seat", w)
+		return
+	}
+
+	tradedSeat, err := models.GetSeat(database.DB, request.TradedSeatID)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting traded seat", w)
+		return
+	}
+
+	buyer := models.Account{
+		ID: tradedSeat.AccountID,
+	}
+
+	err = buyer.Get(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting account", w)
+		return
+	}
+
+	seller := models.Account{
+		ID: boughtSeat.AccountID,
+	}
+
+	err = seller.Get(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting account", w)
+		return
+	}
+
+	buyer.Money -= boughtSeat.BuyNowPrice
+	seller.Money += boughtSeat.BuyNowPrice
+	if err := buyer.UpdateAccount(database.DB); err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating buyer account", w)
+		return
+	}
+
+	if err := seller.UpdateAccount(database.DB); err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating seller account", w)
+		return
+	}
+
+	boughtSeat.AccountID, tradedSeat.AccountID = tradedSeat.AccountID, boughtSeat.AccountID
+	boughtSeat.CurrentBid, tradedSeat.CurrentBid = 0, 0
+	boughtSeat.LastBidder, tradedSeat.LastBidder = "", ""
+	boughtSeat.ForSale, tradedSeat.ForSale = false, false
+
+	err = boughtSeat.Update(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating bought seat", w)
+		return
+	}
+
+	err = tradedSeat.Update(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error updating traded seat", w)
+		return
+	}
+
+	utils.Respond(http.StatusOK, "Buy now successful", w)
 }
