@@ -28,12 +28,4 @@ func main() {
 
 	s := v1.NewServer()
 	log.Fatal(http.ListenAndServe(":8080", s))
-
-	// acc := models.Account{ID: "12",
-	// 	FirstName: "Johny",
-	// 	LastName:  "Test",
-	// 	Email:     "jt@gmail.com",
-	// 	Money:     423}
-
-	// acc.Create(database.DB)
 }
