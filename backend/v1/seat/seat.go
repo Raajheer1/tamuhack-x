@@ -72,6 +72,31 @@ func GetAllSeats(w http.ResponseWriter, r *http.Request) {
 	utils.Respond(http.StatusOK, string(seatsString), w)
 }
 
+func GetAllSeatsWithFlightId(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		utils.Respond(http.StatusBadRequest, "Invalid flight id", w)
+		return
+	}
+
+	seats, err := models.GetAllSeatsWithFlightID(database.DB, uint(idInt))
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting seats", w)
+		return
+	}
+
+	// Convert seats to string
+	seatsString, err := json.Marshal(seats)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error marshalling seats", w)
+		return
+	}
+
+	utils.Respond(http.StatusOK, string(seatsString), w)
+}
+
 func GetSeat(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 

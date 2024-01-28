@@ -50,6 +50,26 @@ func GetAllSeats(db *gorm.DB) ([]*Seat, error) {
 	return seats, err
 }
 
+func GetAllSeatsWithAccountID(db *gorm.DB, accountID string) ([]*Seat, error) {
+	var seats []*Seat
+	err := db.Where("account_id = ?", accountID).Find(&seats).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return seats, err
+}
+
+func GetAllSeatsWithFlightID(db *gorm.DB, flightID uint) ([]*Seat, error) {
+	var seats []*Seat
+	err := db.Where("flight_id = ?", flightID).Find(&seats).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return seats, err
+}
+
 func UpdateSeat(db *gorm.DB, seat *Seat) error {
 	err := db.Save(seat).Error
 	if err != nil {

@@ -12,14 +12,13 @@
             <h1 class="text-4xl font-medium my-6">Sign In</h1>
             <p class="text-gray-400 my-6">Start Your Journey with affordable price</p>
             
-            <form v-on:submit.prevent="attemptLogin">
+            <div >
                 <ul>
                     <li class="my-6">
                         <label>AADVANTAGE #</label>
                         <blockquote></blockquote>
                         <input name="aaAdvantageNum" placeholder="Enter AAAdvantage #" v-model="aaAdvantageNum">
                     </li>
-                    
                     <li class="my-6">
                         <label>PASSWORD</label>
                         <blockquote></blockquote>
@@ -27,13 +26,13 @@
                     </li>
 
                     <li>
-                    <button type="submit" class="w-full text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
+                    <button @click="attemptLogin" type="button" class="w-full text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
                         Sign in 
                         <span><i class="fa-solid fa-circle-check"></i></span>
                     </button>
                     </li>
                 </ul>
-            </form>
+            </div>
             
         </div>
     </div>
@@ -45,17 +44,25 @@
     
     const aaAdvantageNum = ref<string>("")
     const password = ref<string>("")
-    
-    const emit = defineEmits(["back", "home"]);
-    
+
+    const emit = defineEmits<{
+      (e: 'home', id: string): void
+      (e: 'back'): void
+    }>()
+
+
     const backPage = () => {
         emit("back")
     }
 
     const attemptLogin = () => {
-        // emit("home")
-        console.log("submit")
-        emit("home")
+        if(password.value == "") {
+            alert("Please enter your password")
+        } else if(aaAdvantageNum.value == "") {
+            alert("Please enter your AAAdvantage #")
+        } else {
+            emit("home", aaAdvantageNum.value)
+        }
     }
 
 </script>

@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'aa-blue': '#0064d2',
+        'aa-red' : '#CA1E23',
       },
     },
     fontFamily: {
