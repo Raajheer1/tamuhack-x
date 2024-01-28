@@ -16,7 +16,7 @@
       Seat Page
     </div>
     <div v-else-if="page === 'confirmation'">
-      <Confirmation />
+      <Confirmation @home="toHome"/> <!--@account="toAccount"-->
     </div>
   </div>
 </template>
@@ -43,4 +43,6 @@ const page = ref<string>("confirmation");
   const toHome = () => {
     page.value = "home";
   }
+
+
 </script>

@@ -35,10 +35,12 @@
     
     const accountPage = () => {
         emit("account")
+        console.log("accountpage button works")
     }
 
     const homePage = () => {
         emit("home")
+        console.log("homepage button works")
     }
 
 </script>
