@@ -3,12 +3,12 @@
         <!-- top information tag -->
         <div class="w-full h-32 bg-aa-blue rounded-b-3xl">
             <div class="flex justify-between">
-                <div class="text-white pt-1.5 pl-4">
+                <div class="text-white pl-3 py-5">
                     <h1 class="text-2xl">{{FirstName}}John {{LastName}}Doe</h1>
                     <h1 class = "text-l">AAdvantage {{aaAdvantageNum}}#8QUJ879</h1>
                     <h1 class="text-l">Member Since {{joinMonth}}/{{joinYear}}</h1>
                 </div>
-                <img src="../assets/aa-tail.svg" alt="American Airlines Logo" class="h-20 w-20 rounded-full mt-4 mr-4">
+                <img src="../assets/aa-tail.svg" alt="American Airlines Logo" class="h-20 w-20 rounded-full m-5">
             </div>
         </div>
         <!-- start balance area -->
@@ -21,7 +21,7 @@
             </div>
         </div>
         <!-- starting the scrolling -->
-        <div class="max-h-screen overflow-auto bg-slate-200 rounded-3xl py-10 px-6 inner w-stretch mx-3 mt-1 mb-3">
+        <div class="h-stretch overflow-auto bg-slate-200 rounded-3xl py-10 px-6 inner w-stretch mx-3 mt-1 mb-3">
             <div class="flex flex-col" v-for="seat in seats">
                 <div>
                     <SeatCard :seat="seat" />
