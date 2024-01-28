@@ -1,41 +1,27 @@
 <template>
-    <div class="w-120 h-32 bg-aa-blue rounded-b-3xl">
-        <div class="flex">
-            <div class="flex-1">
-                <h1>7:00 AM</h1> 
-                <h2>1/28/24</h2>
-            </div>
-
-            <div class="flex-1">
-                <h1>SEA</h1>
-                <h2>Seatle</h2>
-            </div>
-
-            <div class="flex-1.2">
-                <div>
-                    <img class="size-16" src="../assets/american_logo.png" alt="">
-                </div>
-                <div>
-                    <h1 class="text-center font-bold text-xl">Seat 23</h1>
-                </div>
-            </div>
-
-            <div class="flex-1">
-                <h1>ORD</h1>
-                <h2>Chicago</h2>
-            </div>
-
-            <div class="flex-1">
-                <h1>10:00 AM</h1>
-                <h2>1/28/24</h2>
+    <div class="flex flex-col h-screen">
+        <div class="w-120 h-32 bg-aa-blue rounded-b-3xl">
+            <div class="text-white p-1.5">
+                <h1 class="text-2xl">{{FirstName}}John {{LastName}}Doe</h1>
+                <h1 class = "text-xl">AAdvantage {{aaAdvantageNum}}#8QUJ879</h1>
+                <h1 class="text-xl">Member Since</h1>
             </div>
         </div>
     </div>
 </template>
 
-<style>
-    div.flex div{
-        padding: 0.3em;
-        font-size: 0.9em;
-    }
-</style>
+<script setup lang="ts">
+
+    import {ref} from "vue"
+
+    const FirstName = ref<string>("")
+
+    const LastName = ref<string>("")
+
+    const aaAdvantageNum = ref<string>("")
+
+    // const joinDate =
+
+    const Money = ref()
+
+</script>
