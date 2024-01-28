@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="page === 'welcome'">
-      <Welcome />
+      <Welcome @next="toLogin" />
     </div>
     <div v-else-if="page === 'login'">
       Login Page
@@ -28,4 +28,8 @@ import Welcome from "./components/Welcome.vue";
 
 // welcome, login, home, account, seat, confirmation
 const page = ref<string>("welcome");
+
+const toLogin = () => {
+  page.value = "login";
+}
 </script>
