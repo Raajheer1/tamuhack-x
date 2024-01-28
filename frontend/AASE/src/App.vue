@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div v-if="page === 'welcome'">
-      <Welcome @next="toLogin" />
+      <Welcome @next="toLogin" @next="toLogin" />
     </div>
     <div v-else-if="page === 'login'">
       Login Page
