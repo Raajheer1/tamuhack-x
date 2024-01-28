@@ -11,7 +11,7 @@
           <Home @seat="toSeat"  />
         </div>
         <div v-if="page === 'account'" :key="page">
-          <Account />
+          <Account @home="toHome" @login="toLogin"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
           <Seats />

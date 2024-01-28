@@ -14,19 +14,24 @@
         <!-- start balance area -->
         <div class="w-stretch h-48 bg-slate-200 rounded-3xl m-3 p-2 px-3">
             <h2>Current Balance</h2>
-            <h1 class="text-4xl">{{ Money }}$15,123.98</h1>
+            <h1 class="text-4xl">${{ Money }}</h1>
             <div class="flex justify-between">
-                <button class="rounded-full h-16 w-72 bg-white my-7 mx-3 text-xl">Withdraw</button>
-                <button class="rounded-full h-16 w-72 bg-black my-7 mx-3 text-xl text-white">Add Funds</button>
+                <button @click="decrement" class="rounded-full h-16 w-72 bg-white my-3 mx-3 text-xl">Withdraw</button>
+                <button @click="increment" class="rounded-full h-16 w-72 bg-black my-3 mx-3 text-xl text-white">Add Funds</button>
             </div>
         </div>
         <!-- starting the scrolling -->
-        <div class="h-stretch overflow-auto bg-slate-200 rounded-3xl py-10 px-6 inner w-stretch mx-3 mt-1 mb-3">
+        <div class="h-stretch overflow-auto bg-slate-200 rounded-3xl pb-3 pt-3 px-6 inner w-stretch mx-3 mt-1">
+            <h1 class="flex justify-center mb-2 pr-14 text-xl">Your Previous Adventures</h1>
             <div class="flex flex-col" v-for="seat in seats">
                 <div>
                     <SeatCard :seat="seat" />
                 </div>
             </div>
+        </div>
+        <div class="flex justify-between">
+            <button @click="homePage" class="w-40 h-20 ml-6 rounded-full my-5 bg-aa-blue text-2xl text-white">Home</button>
+            <button @click="loginPage" class="w-40 h-20 mr-6 rounded-full my-5 bg-aa-red text-2xl text-white">Logout</button>
         </div>
     </div>
 </template> 
@@ -45,6 +50,22 @@
     emit('seat', id)
     }
 
+    const loginPage = () => {
+        emit("login")
+    }
+
+    const homePage = () => {
+        emit("home")
+    }
+
+    const decrement = () => {
+        Money.value = 0
+    }
+
+    const increment = () => {
+        Money.value = Money.value + 100
+    }
+
     const FirstName = ref<string>("")
 
     const LastName = ref<string>("")
@@ -59,7 +80,7 @@
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
 
-    const Money = ref()
+    var Money = ref<number>(10)
 
     const seats = ref<Seat[]>([
   {

@@ -10,10 +10,6 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-type Response struct {
-	AAvantage string `json:"aadvantage_number"`
-}
-
 func DoIt(w http.ResponseWriter, r *http.Request) {
 	AAid := chi.URLParam(r, "id")
 
