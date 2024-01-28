@@ -15,8 +15,9 @@ func main() {
 	os.Setenv("DB_HOST", "localhost")
 	os.Setenv("DB_PORT", "3306")
 	os.Setenv("DB_USER", "root")
-	os.Setenv("DB_PASSWORD", "54321!")
+	os.Setenv("DB_PASSWORD", "SEV22900")
 	os.Setenv("DB_DATABASE", "tamuhack")
+	os.Setenv("DB_LOGGER_LEVEL", "warn")
 
 	cfg := config.New()
 

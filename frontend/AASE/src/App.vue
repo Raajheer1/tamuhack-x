@@ -8,7 +8,7 @@
           <Login @back="toWelcome" @home="toHome" />
         </div>
         <div v-if="page === 'home'" :key="page">
-          <Home @seat="toSeat" @account="toAccount" />
+          <Home @seat="toSeat" @account="toAccount" :seats="seats" />
         </div>
         <div v-if="page === 'account'" :key="page">
           <Account @home="toHome" @home2="toHome2" @login="toLogin" :seats="seats"/>
@@ -71,10 +71,16 @@ const toAccount = () => {
   page.value = "account"
 }
 
-const toSeat = (SeatID: string) => {
+const toSeat = async (SeatID: string) => {
   seats.value.forEach((seat) => {
     if (seat.id.toString() === SeatID) {
       selectedSeat.value = seat
+    }
+  })
+  const secondary = await API.get("/seat/flight/" + selectedSeat.value?.flight_id);
+  secondary.data.forEach((seat: Seat) => {
+    if(seat.for_sale) {
+      emptySeats.value.push(seat);
     }
   })
   page.value = "seats"
@@ -84,14 +90,7 @@ const toSeat = (SeatID: string) => {
 const fetchSeats = async () => {
   const response = await API.get("/account/fetchall/" + AAAdvantageID.value);
   seats.value = response.data;
-
-  // TODO - Fetch the empty seats on this plane
-  const secondary = await API.get("/seat/flight/" + selectedSeat.value?.flight_id);
-  secondary.data.forEach((seat: Seat) => {
-    if(seat.for_sale) {
-      emptySeats.value.push(seat);
-    }
-  })
+  console.log(seats.value);
 }
 
 </script>

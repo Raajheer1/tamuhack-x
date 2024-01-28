@@ -60,31 +60,9 @@
         } else if(aaAdvantageNum.value == "") {
             alert("Please enter your AAAdvantage #")
         }
+
         
-        // emit("home")
-        console.log("submit")
-
-        if(password.value.length >= 4 && aaAdvantageNum.value.length >= 2){
-
-            fetch(`http://localhost:8080/account/fetchall/${aaAdvantageNum.value}`, {
-                method: "get",
-                mode: "cors",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            }).then(res => {
-                return res.json();
-            }).then(data => {
-                console.log(data);
-                console.log("login sucess");
-                emit("home")
-            }).catch(err => {
-                console.error("Failed to Login : ", err);
-            })
-        }else{
-            console.log("invalid credentials");
-        }
-
+        emit("home", aaAdvantageNum.value)
     }
 
 </script>
