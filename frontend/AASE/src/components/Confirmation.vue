@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col pt-10 bg-aa-blue h-screen">
-        <img class="absolute mx-10 flex items-center" src="../assets/globe.svg" alt="World" />
-        <div class="ml-10">
+        <img class="absolute mx-10 flex items-center z-5" src="../assets/globe.svg" alt="World" />
+        <div class="ml-10 z-10">
             <button @click="homePage"> <!--might make it navigate to seats again if they still want to trade-->
                 <i class="fa-solid fa-arrow-left text-white"></i> 
             </button>

@@ -1,8 +1,7 @@
 
 <template>
     
-    <div class="flex mx-auto bg-[url('./src/assets/american_bg.png')] h-screen" id="login">
-        
+    <div class="flex mx-auto h-screen bg-[url('./src/assets/american_bg.png')] bg-cover" id="login">
         <div class="mx-auto px-10">
             <div class="my-10">
                 <button @click="backPage">
