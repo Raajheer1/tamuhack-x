@@ -1,9 +1,6 @@
 <template>
-  <div class="flex flex-col pt-10 bg-aa-blue h-screen relative">
+  <div class="flex flex-col bg-aa-blue h-screen relative">
         <img class="absolute mx-10 flex items-center z-5" src="../assets/globe.svg" alt="World" />
-
-        <!-- Blue background div -->
-        <div class="absolute inset-0 bg-aa-blue bg-cover bg-center opacity-80"></div>
 
         <!-- Flight Details -->
         <div class="w-120 h-32 bg-white rounded-b-3xl shadow-md p-4 relative z-10">
@@ -67,7 +64,59 @@
         </div>
 
         <!-- seatmap -->
+        <div class="flex flex-col p-4 relative z-10 text-white">
+            Selected Seat: 8B
+        </div>
+        <div class="mt-4 p-4 h-stretch bg-white overflow-y-auto w-stretch m-3 rounded-3xl shadow-md relative z-10">
+    <!-- First Class Section -->
+    <div>
+      <p class="text-2xl font-bold text-black text-center">First Class</p>
+      <div class="grid grid-cols-3">
+        <!-- add boxes with rounded corners-->
+        <div class="flex flex-col justify-center items-center p-2 mx-2">
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+
+          </div>
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+
+
+          </div>
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-3">
+        <!-- add boxes with rounded corners-->
+        <div class="flex flex-col justify-center items-center p-2">
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+
+          </div>
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+
+
+          </div>
+          <div class="flex flex-row">
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+            <div class="w-10 h-10 bg-white rounded-xl p-2 border-4 mb-1"></div>
+          </div>
+        </div>
+        </div>
+        <!-- Add more seats as needed -->
+       
+      </div>
+      </div>
+    <!-- Economy Class Section -->
         <!-- A320 -->
+  </div>
   </div>
 </template>
 
