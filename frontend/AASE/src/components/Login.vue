@@ -60,9 +60,8 @@
             alert("Please enter your password")
         } else if(aaAdvantageNum.value == "") {
             alert("Please enter your AAAdvantage #")
-        } else {
-            emit("home", aaAdvantageNum.value)
         }
+        
         // emit("home")
         console.log("submit")
 

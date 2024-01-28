@@ -40,7 +40,7 @@
   import {Seat} from "./types";
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("welcome");
+const page = ref<string>("login");
 
 const AAAdvantageID = ref<string>("");
 
