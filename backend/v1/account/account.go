@@ -9,10 +9,6 @@ import (
 	"net/http"
 )
 
-type Response struct {
-	AAvantage string `json:"aadvantage_number"`
-}
-
 func DoIt(w http.ResponseWriter, r *http.Request) {
 	AAid := chi.URLParam(r, "id")
 
