@@ -10,6 +10,10 @@ export default {
         'aa-blue': '#0064d2',
       },
     },
+    fontFamily: {
+      'outfit': ['Outfit', 'sans-serif'],
+      'montserrat': ['Montserrat', 'sans-serif'],
+    }
   },
   plugins: [],
 }

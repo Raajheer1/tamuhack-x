@@ -1,24 +1,26 @@
 <template>
-  <div id="app">
-    <div v-if="page === 'welcome'">
-      <Welcome @next="toLogin" />
+  <transition name="slide-fade" mode="out-in">
+    <div id="app" :key="page">
+        <div v-if="page === 'welcome'" :key="page">
+          <Welcome @next="toLogin" />
+        </div>
+        <div v-if="page === 'login'" :key="page">
+          <Login @back="toWelcome" @home="toHome" />
+        </div>
+        <div v-if="page === 'home'" :key="page">
+          <Home @seat="toSeat"  />
+        </div>
+        <div v-if="page === 'account'" :key="page">
+          <Account />
+        </div>
+        <div v-if="page === 'seats'" :key="page">
+          <Seats />
+        </div>
+        <div v-if="page === 'confirmation'" :key="page">
+          <Confirmation @home="toHome" @account="toAccount"/>
+        </div>
     </div>
-    <div v-else-if="page === 'login'">
-      <Login @back="toWelcome" @home="toHome" />
-    </div>
-    <div v-else-if="page === 'home'">
-      <Home />
-    </div>
-    <div v-else-if="page === 'account'">
-      <Account />
-    </div>
-    <div v-else-if="page === 'seats'">
-      <Seats />
-    </div>
-    <div v-else-if="page === 'confirmation'">
-      <Confirmation @home="toHome" @account="toAccount"/> <!--@account="toAccount"-->
-    </div>
-  </div>
+  </transition>
 </template>
 
 
@@ -34,27 +36,45 @@
 // welcome, login, home, account, seat, confirmation
 // const page = ref<string>("seats");
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("account");
+const page = ref<string>("welcome");
 
 
-  const toLogin = () => {
-    page.value = "login";
-  }
 
-  const toWelcome = () => {
-    page.value = "welcome";
-  }
+const toLogin = () => {
+  page.value = "login";
+}
 
-  const toHome = () => {
-    page.value = "home";
-  }
+const toWelcome = () => {
+  page.value = "welcome";
+}
 
-  const toAccount = () => {
-    page.value = "account"
-  }
+const toHome = () => {
+  page.value = "home";
+}
 
-  // const toSeats = () => {
-  //   page.value = "seats"
-  // }
+const toAccount = () => {
+  page.value = "account"
+}
+
+const toSeat = (id: string) => {
+  page.value = "seats"
+}
+
 
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.1s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>
