@@ -157,7 +157,7 @@ func UpdateSeat(w http.ResponseWriter, r *http.Request) {
 	seat.BidTimeEnd = request.BidTimeEnd
 
 	// Update seat in database
-	err = models.UpdateSeat(database.DB, seat)
+	err = seat.Update(database.DB)
 	if err != nil {
 		utils.Respond(http.StatusInternalServerError, "Error updating seat", w)
 		return
@@ -199,13 +199,13 @@ func SwapSeats(w http.ResponseWriter, r *http.Request) {
 	seat1.CurrentBid, seat2.CurrentBid = 0, 0
 	seat1.LastBidder, seat2.LastBidder = "", ""
 
-	err = models.UpdateSeat(database.DB, seat1)
+	err = seat1.Update(database.DB)
 	if err != nil {
 		utils.Respond(http.StatusInternalServerError, "Error updating seat 1", w)
 		return
 	}
 
-	err = models.UpdateSeat(database.DB, seat2)
+	err = seat2.Update(database.DB)
 	if err != nil {
 		utils.Respond(http.StatusInternalServerError, "Error updating seat 2", w)
 		return

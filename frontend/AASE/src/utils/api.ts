@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:8080/"
+const apiUrl = "https://tamuhack.raajpatel.dev/"
 
 export const API = axios.create({
     baseURL: apiUrl,
