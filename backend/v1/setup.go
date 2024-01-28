@@ -18,7 +18,7 @@ func NewServer() *chi.Mux {
 	r.Use(middleware.Recoverer)
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"*"},
+		AllowOrigins:     []string{"*"},
 	}))
 
 	r.Get("/", handleMain)

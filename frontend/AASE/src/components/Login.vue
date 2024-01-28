@@ -1,4 +1,3 @@
-
 <template>
     
     <div class="flex mx-auto h-screen bg-[url('./src/assets/american_bg.png')] bg-cover" id="login">
@@ -19,19 +18,19 @@
             <!-- <h1 class="text-4xl font-medium my-6">Sign In</h1>
             <p class="text-gray-400 my-6">Start Your Journey with affordable price</p> -->
 
-            <div class="absolute mt-96 h-64 w-full mx-5 bg-slate-200 rounded-2xl ">  . </div>
-            
-            <div class="flex flex-col">
-                <input class="mt-8 mb-5 mx-8 h-10 rounded-xl px-3" name="aaAdvantageNum" placeholder="Enter AAdvantage #" v-model="aaAdvantageNum">
-                <input class="mx-8 h-10 rounded-xl px-3" name="password" placeholder="Password" v-model="password" type="password">
-                <button @click="attemptLogin" type="button" class="w-stretch text-xl bg-blue-500 text-white py-3 my-5 mx-8 mb-8 h-10 rounded-xl gap-x-1">
-                    Sign in 
-                    <span><i class="fa-solid fa-circle-check"></i></span>
-                </button> 
-            </div>
+            <!-- <div class="absolute mt-80 h-48 w-80 mx-9 bg-slate-200 rounded-2xl opacity-50 text-transparent z-0">  . </div> -->
 
-            
-            
+            <div class="flex flex-col mt-80 w-80 mx-8 z-10">
+                <div class="h-full w-full opacity-50">
+
+                </div>
+                <input class="mt-16 mb-3 mx-8 h-10 rounded-xl px-3" name="aaAdvantageNum" placeholder="Enter AAdvantage #" v-model="aaAdvantageNum">
+                <input class="mx-8 h-10 rounded-xl px-3" name="password" placeholder="Password" v-model="password" type="password">
+                <button @click="attemptLogin" type="button" class="w-stretch text-xl bg-blue-500 text-white pt-1.5 my-3 mx-8 mb-8 h-10 rounded-xl gap-x-1">
+                    Sign in 
+                    <!-- <span><i class="fa-solid fa-circle-check"></i></span> -->
+                </button> 
+            </div>          
             
         </div>
     </div>

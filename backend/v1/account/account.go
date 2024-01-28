@@ -28,12 +28,24 @@ func DoIt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	seats.Account = account
+
+	f := models.Flight{
+		ID: seats.FlightID,
+	}
+	err = f.Get(database.DB)
+	if err != nil {
+		utils.Respond(http.StatusInternalServerError, "Error getting flight", w)
+		return
+	}
+
+	seats.Flight = f
+
 	seatString, err := json.Marshal(seats)
 	if err != nil {
 		utils.Respond(http.StatusInternalServerError, "Error marshalling seats", w)
 		return
 	}
-	println("SUCESSS!!!")
 
 	utils.Respond(http.StatusOK, string(seatString), w)
 }

@@ -15,13 +15,7 @@ func (a *Account) Create(db *gorm.DB) error {
 }
 
 func (a *Account) Get(db *gorm.DB) error {
-	account := &Account{}
-	err := db.First(account, a.ID).Error
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return db.Where("id = ?", a.ID).First(a).Error
 }
 
 func GetAllAccounts(db *gorm.DB) ([]*Account, error) {

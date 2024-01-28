@@ -23,14 +23,9 @@ func (f *Flight) Create(db *gorm.DB) error {
 	return nil
 }
 
-func (f *Flight) Get(db *gorm.DB) error {
-	flight := &Flight{}
-	err := db.First(flight, f.ID).Error
-	if err != nil {
-		return err
-	}
 
-	return nil
+func (f *Flight) Get(db *gorm.DB) error {
+	return db.Where("id = ?", f.ID).First(f).Error
 }
 
 func GetAllFlights(db *gorm.DB) ([]*Flight, error) {
