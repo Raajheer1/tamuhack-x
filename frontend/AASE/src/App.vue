@@ -16,6 +16,9 @@
         <div v-if="page === 'seats'" :key="page">
           <Seats :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
         </div>
+        <div v-if="page === 'bidding'" :key="page">
+          <Bidding />
+        </div>
         <div v-if="page === 'confirmation'" :key="page">
           <Confirmation @home="toHome" @account="toAccount"/>
         </div>
@@ -32,8 +35,8 @@
   import Confirmation from './components/Confirmation.vue';
   import Account from "./components/Account.vue";
   import Seats from "./components/Seats.vue";
+  import Bidding from "./components/Bidding.vue";
   import {API} from "./utils/api.ts";
-
   import {Seat} from "./types";
 
 // welcome, login, home, account, seat, confirmation
