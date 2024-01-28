@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"github.com/Raajheer1/tamuhack-x/m/v2/v1/account"
 	"github.com/Raajheer1/tamuhack-x/m/v2/v1/flight"
 	"github.com/Raajheer1/tamuhack-x/m/v2/v1/seat"
 	"github.com/go-chi/chi/v5"
@@ -18,6 +19,7 @@ func NewServer() *chi.Mux {
 
 	r.Route("/flight", flight.Router)
 	r.Route("/seat", seat.Router)
+	r.Route("/account", account.Router)
 
 	return r
 }
