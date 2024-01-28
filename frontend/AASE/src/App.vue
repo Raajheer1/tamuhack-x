@@ -11,13 +11,15 @@
           <Home @seat="toSeat" @account="toAccount" :seats="seats" />
         </div>
         <div v-if="page === 'account'" :key="page">
-          <Account @home="toHome" @home2="toHome2" @login="toLogin" :seats="seats"/>
+          <Account @home2="toHome2" @login="toLogin" :seats="seats" :me="seats[0].account"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
-          <Seats @bidding="toBidding" :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
+          <Seats @home="toHome2"  @bidding="toBidding" :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
         </div>
         <div v-if="page === 'bidding'" :key="page">
-          <Bidding :myseat="oldS" :selectedseat="newS" />
+          <Bidding @home="toHome" @confirm="toConfirmation" :myseat="oldS" :selectedseat="newS"
+                   @recompute="recomp"
+                   @recompute2="recomp2"/>
         </div>
         <div v-if="page === 'confirmation'" :key="page">
           <Confirmation @home="toHome" @account="toAccount"/>
@@ -80,6 +82,10 @@ const toAccount = () => {
   page.value = "account"
 }
 
+const toConfirmation = () => {
+  page.value = "confirmation"
+}
+
 const toSeat = async (SeatID: string) => {
   seats.value.forEach((seat) => {
     if (seat.id.toString() === SeatID) {
@@ -100,6 +106,16 @@ const fetchSeats = async () => {
   const response = await API.get("/account/fetchall/" + AAAdvantageID.value);
   seats.value = response.data;
   console.log(seats.value);
+}
+
+const recomp = () => {
+  fetchSeats();
+  page.value = "home";
+}
+
+
+const recomp2 = () => {
+  fetchSeats();
 }
 
 </script>

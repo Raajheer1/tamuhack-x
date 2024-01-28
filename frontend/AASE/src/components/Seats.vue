@@ -3,7 +3,7 @@
     <img class="absolute mx-10 flex items-center z-5" src="../assets/globe.svg" alt="World" />
 
       <!-- Flight Details -->
-    <div class="w-120 h-32 bg-white rounded-b-3xl shadow-md p-4 relative z-10">
+    <div class="pt-14 w-120 h-32 bg-white rounded-b-3xl shadow-md p-4 relative z-10">
         <div class="flex flex-row justify-between h-full">
             <!-- Departure Details -->
             <div class="flex flex-row">
@@ -29,13 +29,9 @@
                 </div>
             </div>
 
-            <!-- Centered Plane Icon and American Airlines Logo -->
-            <div class="flex items-center justify-center flex flex-col">
-                <img src="../assets/aa-tail.svg" alt="American Airlines Logo" class="h-20 w-20 rounded-full">
-                <div class="text-sm text-black flex flex-row font-weight-bold">
-                    Seat: {{ mySeat.seat_number }}
-                </div>
-            </div>
+            <button @click="homePage">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
 
             <!-- Arrival Details -->
             <div class="flex flex-row">
@@ -163,10 +159,11 @@ const props = defineProps(['selectedSeat', 'emptySeats']);
 
 const emit = defineEmits<{
   (e: 'bidding', mySeat: Seat, newSeat: Seat): void
+  (e: 'home'): void
 }>()
 
 const mySeat = ref<Seat>(props.selectedSeat);
-const availableSeats = ref<Seat[]>([props.selectedSeat]);
+const availableSeats = ref<Seat[]>(props.emptySeats);
 
 const AvailSeatNumbers = computed(() => {
   const seatNumbers: string[] = [];
@@ -184,9 +181,14 @@ const isAvailable = (seat: string) => {
 }
 
 const placeBid = (newLocation: string) => {
-  if(newLocation != mySeat.value.seat_number){
+  if(newLocation != mySeat.value.seat_number && isAvailable(newLocation)) {
     const temp = availableSeats.value.filter((seat) => seat.seat_number == newLocation)[0];
     emit('bidding', mySeat.value, temp);
   }
 }
+
+const homePage = () => {
+  emit("home")
+}
+
 </script>

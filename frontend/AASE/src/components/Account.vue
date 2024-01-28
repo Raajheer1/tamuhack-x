@@ -4,8 +4,8 @@
         <div class="w-full h-32 bg-aa-blue rounded-b-3xl">
             <div class="flex justify-between">
                 <div class="text-white pl-3 py-5">
-                    <h1 class="text-2xl">{{FirstName}}John {{LastName}}Doe</h1>
-                    <h1 class = "text-l">AAdvantage {{aaAdvantageNum}}#8QUJ879</h1>
+                    <h1 class="text-2xl">{{ user.first_name }} {{ user.last_name }}</h1>
+                    <h1 class = "text-l">AAdvantage #{{ user.id }}</h1>
                     <h1 class="text-l">Member Since {{joinMonth}}/{{joinYear}}</h1>
                 </div>
                 <img src="../assets/aa-tail.svg" alt="American Airlines Logo" class="h-20 w-20 rounded-full m-5">
@@ -14,7 +14,7 @@
         <!-- start balance area -->
         <div class="w-stretch h-48 bg-slate-200 rounded-3xl m-3 p-2 px-3">
             <h2>Current Balance</h2>
-            <h1 class="text-4xl">${{ Money }}</h1>
+            <h1 class="text-4xl">${{ user.money }}</h1>
             <div class="flex justify-between">
                 <button @click="decrement" class="rounded-full h-16 w-72 bg-white my-3 mx-3 text-xl">Withdraw</button>
                 <button @click="increment" class="rounded-full h-16 w-72 bg-black my-3 mx-3 text-xl text-white">Add Funds</button>
@@ -23,8 +23,8 @@
         <!-- starting the scrolling -->
         <div class="h-stretch overflow-auto bg-slate-200 rounded-3xl pb-3 pt-3 px-6 inner w-stretch mx-3 mt-1">
             <h1 class="flex justify-center mb-2 pr-14 text-xl">Your Previous Adventures</h1>
-            <div class="flex flex-col" v-for="seat in seats">
-                <div>
+            <div class="flex flex-col" v-for="seat in props.seats">
+                <div :key="seat.id">
                     <SeatCard :seat="seat" />
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 
-    import {Seat} from "../types";
+import {Account} from "../types";
     import { ref } from 'vue';
     import SeatCard from "./SeatCard.vue";
 
@@ -46,6 +46,13 @@
       (e: 'login'): void
       (e: 'home2'): void
     }>()
+
+    const props = defineProps(['me', 'seats']);
+    const user = ref<Account>(props.me);
+
+    if(user.value.money > 1000){
+      user.value.money = 750
+    }
 
     const loginPage = () => {
         emit("login")
@@ -56,18 +63,13 @@
     }
 
     const decrement = () => {
-        Money.value = 0
+        user.value.money = 0
     }
 
     const increment = () => {
-        Money.value = Money.value + 100
+        user.value.money = user.value.money + 100
     }
 
-    const FirstName = ref<string>("")
-
-    const LastName = ref<string>("")
-
-    const aaAdvantageNum = ref<string>("")
 
     const joinDate = randomDate(new Date(1981, 5), new Date())
     const joinMonth = joinDate.getMonth()
@@ -77,89 +79,5 @@
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
 
-    var Money = ref<number>(10)
-
-    const seats = ref<Seat[]>([
-  {
-    id: 1,
-    seat_number: "1A",
-    flight: {
-      id: 1,
-      origin: "SEA",
-      destination: "ORD",
-      aircraft_type: "737",
-      scheduled_departure_time: "2021-10-10T12:00:00.000Z",
-      scheduled_arrival_time: "2021-10-10T18:00:00.000Z",
-    },
-    assigned_pnr: "ABCDEF",
-    bid_time_end: new Date().toString(),
-    buy_now_price: 0,
-    current_bid: 0,
-    flight_id: 0,
-    for_sale: false,
-    last_bidder: "",
-    min_price: 0,
-  },
-  {
-    id: 2,
-    seat_number: "3B",
-    flight: {
-      id: 66,
-      origin: "DFW",
-      destination: "NYC",
-      aircraft_type: "737",
-      scheduled_departure_time: "2021-10-10T12:00:00.000Z",
-      scheduled_arrival_time: "2021-10-10T18:00:00.000Z",
-    },
-    assigned_pnr: "DEFGFF",
-    bid_time_end: new Date().toString(),
-    buy_now_price: 0,
-    current_bid: 0,
-    flight_id: 0,
-    for_sale: false,
-    last_bidder: "",
-    min_price: 0,
-  },
-  {
-    id: 3,
-    seat_number: "11F",
-    flight: {
-      id: 46,
-      origin: "IAH",
-      destination: "CLL",
-      aircraft_type: "737",
-      scheduled_departure_time: "2021-10-10T12:00:00.000Z",
-      scheduled_arrival_time: "2021-10-10T18:00:00.000Z",
-    },
-    assigned_pnr: "DEFGFF",
-    bid_time_end: new Date().toString(),
-    buy_now_price: 0,
-    current_bid: 0,
-    flight_id: 0,
-    for_sale: false,
-    last_bidder: "",
-    min_price: 0,
-  },
-  {
-    id: 4,
-    seat_number: "21F",
-    flight: {
-      id: 46,
-      origin: "MIA",
-      destination: "SFO",
-      aircraft_type: "737",
-      scheduled_departure_time: "2021-10-10T12:00:00.000Z",
-      scheduled_arrival_time: "2021-10-10T18:00:00.000Z",
-    },
-    assigned_pnr: "DEFGFF",
-    bid_time_end: new Date().toString(),
-    buy_now_price: 0,
-    current_bid: 0,
-    flight_id: 0,
-    for_sale: false,
-    last_bidder: "",
-    min_price: 0,
-  }
-]);
 
 </script>

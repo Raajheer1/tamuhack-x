@@ -35,8 +35,15 @@
   <script setup lang="ts">
   import { ref } from 'vue';
   import {Seat} from "../types";
+  import {API} from "../utils/api.ts";
 
   const props = defineProps(['myseat', 'selectedseat']);
+
+  const emit = defineEmits<{
+    (e: 'recompute'): void
+    (e: 'recompute2'): void
+    (e: 'confirm'): void
+  }>()
 
   const currentSeat = ref<Seat>(props.myseat);
   const newSeat = ref<Seat>(props.selectedseat);
@@ -47,18 +54,37 @@
     return userBid.value - newSeat.value.current_bid;
   }
 
-  const placeBid = () => {
+  const placeBid = async () => {
     if (userBid.value < newSeat.value.current_bid) {
       alert("Your bid must be higher than the current bid!");
     } else {
       newSeat.value.current_bid = userBid.value;
-      currentSeat.value = newSeat.value;
-      alert("Bid placed!");
+      const request = {
+        bought_seat_id: newSeat.value.id,
+        traded_seat_id: currentSeat.value.id,
+        bid: userBid.value
+      }
+      const response = await API.post("/account/bid", request);
+      if (response.status == 200) {
+        emit('recompute')
+      } else {
+        alert("Bid failed!");
+      }
     }
   }
 
-  const buyNow = () => {
-    alert("Seat purchased!");
+  const buyNow = async () => {
+    const request = {
+      bought_seat_id: newSeat.value.id,
+      traded_seat_id: currentSeat.value.id,
+    }
+    const response = await API.post("/account/buy", request);
+    if (response.status == 200) {
+      emit('recompute2')
+      emit('confirm')
+    } else {
+      alert("Womp Womp!");
+    }
   }
   </script>
   
