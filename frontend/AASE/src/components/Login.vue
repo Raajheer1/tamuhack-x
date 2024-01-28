@@ -13,22 +13,22 @@
             <h1 class="text-4xl font-medium my-6 ">Sign In</h1>
             <p class="text-gray-400 my-6">Start Your Journey with affordable price</p>
             
-            <form>
+            <form v-on:submit.prevent="attemptLogin">
                 <ul>
                     <li class="my-6">
-                        <label for="">AAADVANTAGE #</label>
+                        <label>AAADVANTAGE #</label>
                         <blockquote></blockquote>
-                        <input placeholder="Enter AAAdvantage #" v-model="aaAdvantageNum">
+                        <input name="aaAdvantageNum" placeholder="Enter AAAdvantage #" v-model="aaAdvantageNum">
                     </li>
                     
                     <li class="my-6">
-                        <label for="">PASSWORD</label>
+                        <label>PASSWORD</label>
                         <blockquote></blockquote>
-                        <input placeholder="Enter Your Password" v-model="password">
+                        <input name="password" placeholder="Enter Your Password" v-model="password">
                     </li>
 
                     <li>
-                    <button class="w-full text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
+                    <button type="submit" class="w-full text-xl bg-blue-500 text-white py-3 rounded-xl gap-x-1">
                         Sign in 
                         <span><i class="fa-solid fa-circle-check"></i></span>
                     </button>
@@ -47,10 +47,16 @@
     const aaAdvantageNum = ref<string>("")
     const password = ref<string>("")
     
-    const emit = defineEmits(['back']);
+    const emit = defineEmits(["back", "home"]);
     
     const backPage = () => {
         emit("back")
+    }
+
+    const attemptLogin = () => {
+        // emit("home")
+        console.log("submit")
+        emit("home")
     }
 
 </script>
