@@ -4,12 +4,12 @@
         <div class="flex flex-row justify-between text-white">
           <div>
             <h3 class="text-lg font-bold tracking-wider">{{ seat.flight.origin }}</h3>
-            <p class="text-xs text-gray-100">Seattle</p>
+            <p class="text-xs text-gray-100">{{ getCityFromAirportCode(seat.flight.origin)}}</p>
           </div>
           <div class="border-b-2 border-dashed border-b-white w-full h-6 mx-5"></div>
           <div class="text-right">
             <h3 class="text-lg font-bold tracking-wider">{{ seat.flight.destination }}</h3>
-            <p class="text-xs text-gray-100">Chiraq</p>
+            <p class="text-xs text-gray-100">{{ getCityFromAirportCode(seat.flight.destination )}}</p>
           </div>
         </div>
         <div class="flex flex-row justify-between py-2 text-white">
@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
 import { Seat } from '../types';
+import getCityFromAirportCode from "../utils/airportcodes.ts";
 
 defineProps<{ seat: Seat }>()
 

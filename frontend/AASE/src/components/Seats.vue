@@ -24,7 +24,7 @@
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Departure city -->
-                        Seattle
+                        {{ getCityFromAirportCode(mySeat.flight.origin) }}
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="text-sm text-opacity-70 text-gray-700 flex flex-row">
                         <!-- Arrival City with 70% opacity -->
-                        Chicago
+                        {{ getCityFromAirportCode(mySeat.flight.destination) }}
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -119,15 +119,15 @@
           </div>
           <div class="w-3/7 flex gap-x-1.5">
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}D` ? 'bg-green-500' : isAvailable(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}D` ? 'bg-green-500' : isAvailable(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">D</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}E` ? 'bg-green-500' : isAvailable(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}E` ? 'bg-green-500' : isAvailable(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">E</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat == `${row + offset}F` ? 'bg-green-500' : isAvailable(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}F` ? 'bg-green-500' : isAvailable(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
               <p class="my-auto mx-auto text-white font-semibold">F</p>
             </div>
           </div>
@@ -141,6 +141,7 @@
 <script setup lang="ts">
 import {computed, ref} from 'vue';
 import {Seat} from "../types";
+import getCityFromAirportCode from "../utils/airportcodes.ts";
 
 const firstClass = ref<number>(16);
 const offset = ref<number>(Math.floor(firstClass.value / 4));

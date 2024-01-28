@@ -60,45 +60,8 @@
             alert("Please enter your AAAdvantage #")
         }
         
-        // emit("home")
-        console.log("submit")
-
-        if(password.value.length >= 4 && aaAdvantageNum.value.length >= 2){
-
-            fetch(`http://localhost:8080/account/fetchall/${aaAdvantageNum.value}`, {
-                method: "get",
-                mode: "cors",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            }).then(res => {
-                return res.json();
-            }).then(data => {
-                console.log(data);
-                localStorage.setItem("identifier", aaAdvantageNum.value)
-                emit("home")
-            }).catch(err => {
-                console.error("Failed to Login : ", err);
-            })
-        }else{
-            console.log("invalid credentials");
-        }
+        emit("home", aaAdvantageNum.value)
 
     }
 
 </script>
-
-<!-- <style scoped>
-
-#opac50 {
-    opacity: 50%;
-    background-color: rgba(255, 255, 255, 122.5);
-}
-
-#opac100 {
-    /* opacity: 100%; */
-    background-color: rgba(255, 255, 255, 255);
-}
-
-
-</style> -->
