@@ -1,16 +1,16 @@
 
 <template>
     
-    <div class="flex mx-auto" id="login">
+    <div class="flex mx-auto bg-[url('./src/assets/american_bg.png')] h-screen" id="login">
         
-        <div class="mx-auto">
+        <div class="mx-auto px-10">
             <div class="my-10">
                 <button @click="backPage">
                     <i class="fa-solid fa-arrow-left"></i> 
                 </button>
             </div>
-
-            <h1 class="text-4xl font-medium my-6 ">Sign In</h1>
+            <h1 class="text-4xl font-medium my-8 text-center">American Airlines Seat Exchange</h1>
+            <h1 class="text-4xl font-medium my-6">Sign In</h1>
             <p class="text-gray-400 my-6">Start Your Journey with affordable price</p>
             
             <form v-on:submit.prevent="attemptLogin">
