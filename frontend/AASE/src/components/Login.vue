@@ -23,7 +23,7 @@
             
             <div class="flex flex-col">
                 <input class="mt-8 mb-5 mx-8 h-10 rounded-xl px-3" name="aaAdvantageNum" placeholder="Enter AAdvantage #" v-model="aaAdvantageNum">
-                <input class="mx-8 h-10 rounded-xl px-3" name="password" placeholder="Password" v-model="password">
+                <input class="mx-8 h-10 rounded-xl px-3" name="password" placeholder="Password" v-model="password" type="password">
                 <button @click="attemptLogin" type="button" class="w-stretch text-xl bg-blue-500 text-white py-3 my-5 mx-8 mb-8 h-10 rounded-xl gap-x-1">
                     Sign in 
                     <span><i class="fa-solid fa-circle-check"></i></span>
