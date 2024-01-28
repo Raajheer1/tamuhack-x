@@ -3,12 +3,11 @@ package models
 import "gorm.io/gorm"
 
 type Account struct {
-	ID        string   `json:"id" gorm:"primaryKey"`
-	FirstName string   `json:"first_name"`
-	LastName  string   `json:"last_name"`
-	Email     string   `json:"email"`
-	PNRs      []string `json:"pnrs" gorm:"foreignKey:AccountID"`
-	Money     uint     `json:"money"`
+	ID        string `json:"id" gorm:"primaryKey;type:varchar(10)"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Money     uint   `json:"money"`
 }
 
 func (a *Account) Create(db *gorm.DB) error {

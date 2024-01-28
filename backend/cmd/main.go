@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	cfg := config.New()
 
 	database.DB = database.Connect(cfg.Database)
