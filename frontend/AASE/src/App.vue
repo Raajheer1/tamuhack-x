@@ -16,7 +16,7 @@
       Seat Page
     </div>
     <div v-else-if="page === 'confirmation'">
-      Confirmation Page
+      <Confirmation />
     </div>
   </div>
 </template>
@@ -27,9 +27,10 @@ import { ref } from 'vue';
 import Welcome from "./components/Welcome.vue";
 import Login from "./components/Login.vue";
 import Home from "./components/Home.vue";
+import Confirmation from './components/Confirmation.vue';
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("login");
+const page = ref<string>("confirmation");
 
   const toLogin = () => {
     page.value = "login";
