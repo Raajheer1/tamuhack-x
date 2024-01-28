@@ -55,7 +55,26 @@
     const attemptLogin = () => {
         // emit("home")
         console.log("submit")
-        emit("home")
+
+        fetch("http://localhost:8080/account/BANG/", {
+            method: "post",
+            mode: "cors",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                aadvantage_number : "12"
+            })
+        }).then(res => {
+            return res.json()
+        }).then(data => {
+            console.log(data)
+            console.log("sucess")
+        }).catch(err => {
+            console.error("Failed to Login : ", err)
+        })
+
+        // emit("home")
     }
 
 </script>

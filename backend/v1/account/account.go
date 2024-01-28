@@ -2,11 +2,12 @@ package account
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/database"
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/database/models"
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/utils"
 	"github.com/go-chi/chi/v5"
-	"net/http"
 )
 
 type Response struct {
@@ -36,6 +37,7 @@ func DoIt(w http.ResponseWriter, r *http.Request) {
 		utils.Respond(http.StatusInternalServerError, "Error marshalling seats", w)
 		return
 	}
+	println("SUCESSS!!!")
 
 	utils.Respond(http.StatusOK, string(seatString), w)
 }
