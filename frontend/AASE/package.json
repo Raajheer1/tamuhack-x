@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "nvm": "0.0.4",
     "vue": "^3.3.11"
   },
   "devDependencies": {
