@@ -10,7 +10,7 @@
       <Home />
     </div>
     <div v-else-if="page === 'account'">
-      Account Page
+      <Account />
     </div>
     <div v-else-if="page === 'seat'">
       Seat Page
@@ -28,6 +28,7 @@ import Welcome from "./components/Welcome.vue";
 import Login from "./components/Login.vue";
 import Home from "./components/Home.vue";
 import Confirmation from './components/Confirmation.vue';
+import Account from './components/Account.vue';
 
 // welcome, login, home, account, seat, confirmation
 const page = ref<string>("account");
