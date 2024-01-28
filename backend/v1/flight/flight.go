@@ -16,7 +16,8 @@ type UpsertRequest struct {
 	Origin              string    `json:"origin"`
 	Dest                string    `json:"dest"`
 	AircraftType        string    `json:"aircraft_type"`
-	ScheduledFlightTime time.Time `json:"scheduled_flight_time"`
+	ScheduledDepartureTime time.Time `json:"scheduled_departure_time"`
+	ScheduledArrivalTime time.Time `json:"scheduled_arrival_time"`
 }
 
 func CreateFlight(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +35,8 @@ func CreateFlight(w http.ResponseWriter, r *http.Request) {
 		Origin:              request.Origin,
 		Dest:                request.Dest,
 		AircraftType:        request.AircraftType,
-		ScheduledFlightTime: request.ScheduledFlightTime,
+		ScheduledDepartureTime: request.ScheduledDepartureTime,
+		ScheduledArrivalTime: request.ScheduledArrivalTime,
 	}
 
 	// Create flight in database
@@ -123,7 +125,8 @@ func UpdateFlight(w http.ResponseWriter, r *http.Request) {
 	flight.Origin = request.Origin
 	flight.Dest = request.Dest
 	flight.AircraftType = request.AircraftType
-	flight.ScheduledFlightTime = request.ScheduledFlightTime
+	flight.ScheduledDepartureTime = request.ScheduledDepartureTime
+	flight.ScheduledArrivalTime = request.ScheduledArrivalTime
 
 	// Update flight in database
 	err = flight.UpdateFlight(database.DB)

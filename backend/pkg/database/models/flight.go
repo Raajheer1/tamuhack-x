@@ -8,9 +8,10 @@ import (
 type Flight struct {
 	ID                  uint      `json:"id" gorm:"primaryKey"`
 	Origin              string    `json:"origin"`
-	Dest                string    `json:"dest"`
+	Dest                string    `json:"destination"`
 	AircraftType        string    `json:"aircraft_type"`
-	ScheduledFlightTime time.Time `json:"scheduled_flight_time"`
+	ScheduledDepartureTime time.Time `json:"scheduled_departure_time"`
+	ScheduledArrivalTime time.Time `json:"scheduled_arrival_time"`
 }
 
 func (f *Flight) Create(db *gorm.DB) error {
