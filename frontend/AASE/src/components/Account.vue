@@ -43,19 +43,16 @@
     import SeatCard from "./SeatCard.vue";
 
     const emit = defineEmits<{
-    (e: 'seat', id: string): void
+      (e: 'login'): void
+      (e: 'home2'): void
     }>()
-
-    const clicked = (id: string) => {
-    emit('seat', id)
-    }
 
     const loginPage = () => {
         emit("login")
     }
 
     const homePage = () => {
-        emit("home")
+        emit("home2")
     }
 
     const decrement = () => {
@@ -76,7 +73,7 @@
     const joinMonth = joinDate.getMonth()
     const joinYear = joinDate.getFullYear()
 
-    function randomDate(start, end) {
+    function randomDate(start: Date, end: Date) {
         return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
 
