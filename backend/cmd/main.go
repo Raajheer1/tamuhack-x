@@ -1,14 +1,13 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/config"
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/database"
 	"github.com/Raajheer1/tamuhack-x/m/v2/pkg/database/models"
 	v1 "github.com/Raajheer1/tamuhack-x/m/v2/v1"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {

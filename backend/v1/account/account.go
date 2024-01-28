@@ -28,18 +28,21 @@ func DoIt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	seats.Account = account
+	for i := range seats {
+		seats[i].Account = account
 
-	f := models.Flight{
-		ID: seats.FlightID,
-	}
-	err = f.Get(database.DB)
-	if err != nil {
-		utils.Respond(http.StatusInternalServerError, "Error getting flight", w)
-		return
-	}
+		f := models.Flight{
+			ID: seats[i].FlightID,
+		}
 
-	seats.Flight = f
+		err = f.Get(database.DB)
+		if err != nil {
+			utils.Respond(http.StatusInternalServerError, "Error getting flight", w)
+			return
+		}
+
+		seats[i].Flight = f
+	}
 
 	seatString, err := json.Marshal(seats)
 	if err != nil {
