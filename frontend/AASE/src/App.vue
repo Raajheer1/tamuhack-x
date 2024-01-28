@@ -34,7 +34,7 @@
 // welcome, login, home, account, seat, confirmation
 // const page = ref<string>("seats");
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("account");
+const page = ref<string>("seats");
 
 
   const toLogin = () => {
