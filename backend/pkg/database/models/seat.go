@@ -10,6 +10,8 @@ type Seat struct {
 	FlightID    uint      `json:"flight_id"`
 	Flight      Flight    `json:"flight" gorm:"foreignKey:FlightID"`
 	SeatNo      string    `json:"seat_number"`
+	AccountID   string    `json:"account_id" gorm:"type:varchar(10)"`
+	Account     Account   `json:"account" gorm:"foreignKey:AccountID"`
 	AssignedPNR string    `json:"assigned_pnr"`
 	ForSale     bool      `json:"for_sale"`
 	MinPrice    uint      `json:"min_price"` // All prices in Dollars

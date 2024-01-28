@@ -1,4 +1,4 @@
-package flight
+package seat
 
 import "github.com/go-chi/chi/v5"
 
