@@ -22,7 +22,7 @@
                     <li class="my-6">
                         <label>PASSWORD</label>
                         <blockquote></blockquote>
-                        <input name="password" placeholder="Enter Your Password" v-model="password">
+                        <input name="password" placeholder="Enter Your Password" v-model="password" type="password">
                     </li>
 
                     <li>
