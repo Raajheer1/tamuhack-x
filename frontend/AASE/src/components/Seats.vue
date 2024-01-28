@@ -76,11 +76,14 @@
           <div class="w-1/3 flex gap-x-2.5">
             <div class="w-12 h-12 rounded-xl flex"
                  :class="mySeat.seat_number == `${row}A` ? 'bg-green-500' : isAvailable(`${row}A`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}A`)"
             >
               <p class="my-auto mx-auto text-white font-semibold">A</p>
             </div>
             <div class="w-12 h-12 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row}B` ? 'bg-green-500' : isAvailable(`${row}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}B` ? 'bg-green-500' : isAvailable(`${row}B`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}B`)"
+            >
               <p class="my-auto mx-auto text-white font-semibold">B</p>
             </div>
           </div>
@@ -89,11 +92,14 @@
           </div>
           <div class="w-1/3 flex gap-x-2.5">
             <div class="w-12 h-12  rounded-xl flex"
-                 :class="mySeat.seat_number == `${row}E` ? 'bg-green-500' : isAvailable(`${row}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}E` ? 'bg-green-500' : isAvailable(`${row}E`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}E`)"
+            >
               <p class="my-auto mx-auto text-white font-semibold">E</p>
             </div>
             <div class="w-12 h-12 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row}F` ? 'bg-green-500' : isAvailable(`${row}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row}F` ? 'bg-green-500' : isAvailable(`${row}F`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}F`)">
               <p class="my-auto mx-auto text-white font-semibold">F</p>
             </div>
           </div>
@@ -102,15 +108,18 @@
         <div v-for="row in Math.floor(economyClass/6)" :key="row" class="flex justify-between my-1">
           <div class="w-3/7 flex gap-x-1.5">
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}A` ? 'bg-green-500' : isAvailable(`${row + offset}A`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}A` ? 'bg-green-500' : isAvailable(`${row + offset}A`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}A`)">
               <p class="my-auto mx-auto text-white font-semibold">A</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}B` ? 'bg-green-500' : isAvailable(`${row + offset}B`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}B` ? 'bg-green-500' : isAvailable(`${row + offset}B`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}B`)">
               <p class="my-auto mx-auto text-white font-semibold">B</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}C` ? 'bg-green-500' : isAvailable(`${row + offset}C`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}C` ? 'bg-green-500' : isAvailable(`${row + offset}C`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}C`)">
               <p class="my-auto mx-auto text-white font-semibold">C</p>
             </div>
           </div>
@@ -119,15 +128,18 @@
           </div>
           <div class="w-3/7 flex gap-x-1.5">
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}D` ? 'bg-green-500' : isAvailable(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}D` ? 'bg-green-500' : isAvailable(`${row + offset}D`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}D`)">
               <p class="my-auto mx-auto text-white font-semibold">D</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}E` ? 'bg-green-500' : isAvailable(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}E` ? 'bg-green-500' : isAvailable(`${row + offset}E`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}E`)">
               <p class="my-auto mx-auto text-white font-semibold">E</p>
             </div>
             <div class="w-10 h-10 rounded-xl flex"
-                 :class="mySeat.seat_number == `${row + offset}F` ? 'bg-green-500' : isAvailable(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'">
+                 :class="mySeat.seat_number == `${row + offset}F` ? 'bg-green-500' : isAvailable(`${row + offset}F`) ? 'bg-aa-blue' : 'bg-gray-500'"
+                 @click="placeBid(`${row}F`)">
               <p class="my-auto mx-auto text-white font-semibold">F</p>
             </div>
           </div>
@@ -149,6 +161,10 @@ const economyClass = ref<number>(144);
 
 const props = defineProps(['selectedSeat', 'emptySeats']);
 
+const emit = defineEmits<{
+  (e: 'bidding', mySeat: Seat, newSeat: Seat): void
+}>()
+
 const mySeat = ref<Seat>(props.selectedSeat);
 const availableSeats = ref<Seat[]>([props.selectedSeat]);
 
@@ -165,5 +181,12 @@ const AvailSeatNumbers = computed(() => {
 
 const isAvailable = (seat: string) => {
   return AvailSeatNumbers.value.includes(seat);
+}
+
+const placeBid = (newLocation: string) => {
+  if(newLocation != mySeat.value.seat_number){
+    const temp = availableSeats.value.filter((seat) => seat.seat_number == newLocation)[0];
+    emit('bidding', mySeat.value, temp);
+  }
 }
 </script>

@@ -14,10 +14,10 @@
           <Account @home="toHome" @home2="toHome2" @login="toLogin" :seats="seats"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
-          <Seats :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
+          <Seats @bidding="toBidding" :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
         </div>
         <div v-if="page === 'bidding'" :key="page">
-          <Bidding />
+          <Bidding :myseat="oldS" :selectedseat="newS" />
         </div>
         <div v-if="page === 'confirmation'" :key="page">
           <Confirmation @home="toHome" @account="toAccount"/>
@@ -40,7 +40,7 @@
   import {Seat} from "./types";
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("login");
+const page = ref<string>("welcome");
 
 const AAAdvantageID = ref<string>("");
 
@@ -55,6 +55,15 @@ const toLogin = () => {
 
 const toWelcome = () => {
   page.value = "welcome";
+}
+
+const oldS = ref<Seat>();
+const newS = ref<Seat>();
+
+const toBidding = (oldSeat: Seat, newSeat: Seat) => {
+  oldS.value = oldSeat;
+  newS.value = newSeat;
+  page.value = "bidding";
 }
 
 const toHome = (AAdvantageID: string) => {
