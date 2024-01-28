@@ -32,7 +32,7 @@
   import Seats from "./components/Seats.vue";
 
 // welcome, login, home, account, seat, confirmation
-const page = ref<string>("account");
+const page = ref<string>("seats");
 
   const toLogin = () => {
     page.value = "login";
@@ -50,8 +50,8 @@ const page = ref<string>("account");
     page.value = "account"
   }
 
-  // const toSeats = () => {
-  //   page.value = "seats"
-  // }
+  const toSeats = () => {
+    page.value = "seats"
+  }
 
 </script>
