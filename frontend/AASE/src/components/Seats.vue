@@ -159,7 +159,7 @@ const props = defineProps(['selectedSeat', 'emptySeats']);
 
 const emit = defineEmits<{
   (e: 'bidding', mySeat: Seat, newSeat: Seat): void
-  (e: 'home'): void
+  (e: 'recomp'): void
 }>()
 
 const mySeat = ref<Seat>(props.selectedSeat);
@@ -188,7 +188,7 @@ const placeBid = (newLocation: string) => {
 }
 
 const homePage = () => {
-  emit("home")
+  emit("recomp")
 }
 
 </script>

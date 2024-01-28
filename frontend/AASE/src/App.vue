@@ -14,7 +14,7 @@
           <Account @home2="toHome2" @login="toLogin" :seats="seats" :me="seats[0].account"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
-          <Seats @home="toHome2"  @bidding="toBidding" :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
+          <Seats @recomp="recomp"  @bidding="toBidding" :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
         </div>
         <div v-if="page === 'bidding'" :key="page">
           <Bidding @home="toHome" @confirm="toConfirmation" :myseat="oldS" :selectedseat="newS"
