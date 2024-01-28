@@ -11,7 +11,7 @@
           <Home @seat="toSeat" @account="toAccount" />
         </div>
         <div v-if="page === 'account'" :key="page">
-          <Account @home="toHome" @login="toLogin" :seats="seats"/>
+          <Account @home="toHome" @home2="toHome2" @login="toLogin" :seats="seats"/>
         </div>
         <div v-if="page === 'seats'" :key="page">
           <Seats :selectedSeat="selectedSeat" :emptySeats="emptySeats" />
@@ -57,6 +57,10 @@ const toWelcome = () => {
 const toHome = (AAdvantageID: string) => {
   AAAdvantageID.value = AAdvantageID;
   fetchSeats();
+  page.value = "home";
+}
+
+const toHome2 = () => {
   page.value = "home";
 }
 
